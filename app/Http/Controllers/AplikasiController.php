@@ -36,9 +36,51 @@ class AplikasiController extends Controller
         $dosens = Dosen::find([3, 4, 5]);
         $beasiswas = Beasiswa::where('jumlah_dana', '>=', 10000000)->get();
 
-        foreach ($dosens as  $dosen) {
+        foreach ($dosens as $dosen) {
             $dosen->beasiswas()->attach($beasiswas);
         }
         echo "Semua dosen sudah mendapat beasiswa";
+    }
+
+    public function inputBeasiswa2()
+    {
+        $mahasiswas = Mahasiswa::where('jurusan', 'Teknik Informatika')->get();
+        $beasiswas = Beasiswa::whereIn('nama', ['Beasiswa Telkom', 'Beasiswa LPDP', 'Beasiswa PPA'])->get();
+
+        foreach ($mahasiswas as $mahasiswa) {
+            $mahasiswa->beasiswas()->sync($beasiswas);
+        }
+
+        // Cari mahasiswa dengan id 4, lalu attach dengan beasiswa id 3
+        Mahasiswa::find(4)->beasiswas()->attach(Beasiswa::find(3));
+
+        echo "Mahasiswa sudah mendapat beasiswa";
+    }
+
+    public function tampilBeasiswa1()
+    {
+        $dosen = Dosen::where('nama', 'Betsy Moen M.T')->first();
+
+        echo "## Daftar beasiswa $dosen->nama ##";
+        echo "<hr>";
+        foreach ($dosen->beasiswas as $beasiswa) {
+            echo "Beasiswa $beasiswa->nama
+                (Rp. " . number_format($beasiswa->jumlah_dana) . ")<br>";
+        }
+    }
+
+    public function tampilBeasiswa2()
+    {
+        $mahasiswas = Mahasiswa::has('beasiswas')->get();
+
+        foreach ($mahasiswas as $mahasiswa) {
+            echo "## Daftar beasiswa $mahasiswa->nama ##";
+            echo "<hr>";
+            foreach ($mahasiswa->beasiswas as $beasiswa) {
+                echo "Beasiswa $beasiswa->nama
+                    (Rp. " . number_format($beasiswa->jumlah_dana) . ")<br>";
+            }
+            echo "<br>";
+        }
     }
 }

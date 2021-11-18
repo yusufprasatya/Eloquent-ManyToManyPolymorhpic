@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/all', [AplikasiController::class,'all']);
 
 Route::get('/input-beasiswa-1', [AplikasiController::class, 'inputBeasiswa1']);
-Route::get('/input-beasiswa-3', [AplikasiController::class, 'inputBeasiswa3']);
+Route::get('/input-beasiswa-2', [AplikasiController::class, 'inputBeasiswa2']);
 
 Route::get('/tampil-beasiswa-1', [AplikasiController::class, 'tampilBeasiswa1']);
 Route::get('/tampil-beasiswa-2', [AplikasiController::class, 'tampilBeasiswa2']);

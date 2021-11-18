@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Dosen extends Model
 {
     use HasFactory;
-    public function beasiswa()
+    public function beasiswas()
     {
         return $this->morphToMany('App\Models\Beasiswa', 'beasiswaable')->withTimestamps();
     }
