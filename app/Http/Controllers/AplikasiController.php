@@ -107,4 +107,38 @@ class AplikasiController extends Controller
             echo "$beasiswa->nama <br>";
         }
     }
+
+    public function withCount()
+    {
+        // Tampilkan total dosen dan mahasiswa yang mengambil beasiswa
+        $beasiswas = Beasiswa::withCount(['dosens', 'mahasiswas'])->get();
+        foreach ($beasiswas as $beasiswa) {
+            echo "$beasiswa->nama diambil oleh $beasiswa->dosens_count dosen dan
+                    $beasiswa->mahasiswas_count mahasiswa <hr>";
+        }
+    }
+
+    public function detach()
+    {
+        $dosen = Dosen::where('nama', 'Lessie Hamill M.T')->first();
+        $beasiswa = Beasiswa::where('nama', 'Beasiswa Pertamina')->first();
+
+        $dosen->beasiswas()->detach($beasiswa);
+        echo " $dosen->nama tidak lagi dapat $beasiswa->nama";
+    }
+
+    public function deleteBeasiswa()
+    {
+        Beasiswa::find(4)->delete();
+        echo "Beasiswa dengan id 4 sudah terhapus";
+    }
+
+    public function deleteMahasiswa()
+    {
+        $mahasiswa =  Mahasiswa::where('nama', 'Domenico Moore')->first();
+        $mahasiswa->delete();
+        $mahasiswa->beasiswas()->detach();
+
+        echo "Mahasiswa $mahasiswa->nama sudah dihapus";
+    }
 }
