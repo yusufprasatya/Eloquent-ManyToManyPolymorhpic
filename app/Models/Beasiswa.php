@@ -10,11 +10,11 @@ class Beasiswa extends Model
     use HasFactory;
     public function dosens()
     {
-        return $this->morphedByMany('\App\Models\Dosen', 'beaiswaable');
+        return $this->morphedByMany('\App\Models\Dosen', 'beasiswaable');
     }
 
     public function mahasiswas()
     {
-        return $this->morphedByMany('\App\Models\Mahasiswa', 'beaiswaable');
+        return $this->morphedByMany('\App\Models\Mahasiswa', 'beasiswaable');
     }
 }

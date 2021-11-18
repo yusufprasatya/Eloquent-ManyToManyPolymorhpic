@@ -83,4 +83,28 @@ class AplikasiController extends Controller
             echo "<br>";
         }
     }
+
+    public function tampilBeasiswa3()
+    {
+        $beasiswas = Beasiswa::has('mahasiswas')->get();
+
+        foreach ($beasiswas as $beasiswa) {
+            echo "Penerima $beasiswa->nama: ";
+            foreach ($beasiswa->mahasiswas as $mahasiswa) {
+                echo "$mahasiswa->nama, ";
+            }
+            echo "<hr>";
+        }
+    }
+
+    public function tampilBeasiswa4()
+    {
+        $beasiswas = Beasiswa::doesntHave('dosens')->get();
+
+        echo "## Daftar beasiswa yang tidak diambil dosen ##";
+        echo "<hr>";
+        foreach ($beasiswas as $beasiswa) {
+            echo "$beasiswa->nama <br>";
+        }
+    }
 }
